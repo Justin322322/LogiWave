@@ -1,81 +1,55 @@
-# LogiWave
-Simulate spatial-temporal event propagation in logistics networks. Delivery status waves ripple through hubs over time — powered by a custom ChronoMap data structure.
+LogiWave
+LogiWave is a simulation tool for modeling delivery event propagation across logistics hubs over time. Using a custom spatial-temporal data structure (ChronoMap) and a wave-based algorithm (EventWave Propagation), this project simulates how shipment updates ripple through a delivery network.
 
-📦 Logistics EventWave Simulator
-Simulate delivery chain events as they ripple through logistics hubs over time and geography. Each event represents a package update, and waves simulate status propagation (e.g., arrival notifications, transfer alerts) to nearby hubs.
+Features
+Custom ChronoMap data structure for efficient event management by time and location.
+Simulates delivery status updates propagating to nearby logistics hubs with configurable delay and range.
+Efficient time-based cleanup of outdated events.
+Simple and extensible codebase for integrating real-world logistics data or visualizations.
+Use Case
+This simulation models how logistics events such as package arrivals, transfers, or alerts propagate in a network of delivery hubs. For example, when a package arrives at Hub A, it triggers updates to nearby hubs (e.g., B, C, D) after a certain delay, mimicking real-world communication or transfer patterns.
 
-🚀 Features
-Custom ChronoMap data structure to manage time-ordered and spatially-indexed events.
-Propagation of delivery events through logistics hubs in a wave-like pattern.
-Efficient querying by time window and location bounds.
-Auto-cleanup of expired events to maintain real-time simulation.
-🗺️ Use Case
-Simulates package or shipment updates across a network of delivery hubs. For instance:
-
-A shipment arrives at Hub A → nearby Hubs B, C, D get notified after 1 hour → notifications propagate onward.
-
-📂 Project Structure
+Project Structure
 bash
 Copy
 Edit
-logistics_eventwave_simulator/
+logiwave/
 │
-├── eventwave.py          # Main simulation code
-├── README.md             # Project documentation (this file)
-🧱 Core Components
-1. EventNode
-Represents a delivery event.
-
-python
-Copy
-Edit
-EventNode:
-  - id: unique identifier
-  - timestamp: time of event
-  - location: (x, y) coordinates of hub
-  - data: payload (e.g., package status)
-2. ChronoMap
-Custom structure for efficient management:
-
-MinHeap → Orders events by time.
-Spatial Index (Grid-based) → Quick spatial access.
-HashMap → O(1) event lookup.
-3. EventWave Propagation
-Algorithm to simulate delivery event ripple effect over time:
-
-At each tick, propagate events to neighbor hubs.
-Delay propagation to mimic real-world processing or transfer time.
-🖥️ Usage Example
+├── eventwave.py     # Main simulation code
+├── README.md        # Project documentation
+Getting Started
+Prerequisites
+Python 3.7 or higher
+No external libraries required (uses built-in modules only)
+Running the Simulation
 bash
 Copy
 Edit
-# Run the simulation
 python eventwave.py
-Sample Output:
-
-vbnet
+Sample Output
+csharp
 Copy
 Edit
-Time 0:
-Event at Hub (0, 0): Shipment Arrived
+=== Time 0 ===
+[0] Hub (0, 0) | Shipment Arrived at Hub (0,0)
 
-Time 1:
-Event at Hub (1, 0): Propagation from 1st event
-Event at Hub (-1, 0): Propagation from 1st event
+=== Time 1 ===
+[1] Hub (0, 1) | Propagated from a1b2c3d4
+[1] Hub (0, -1) | Propagated from a1b2c3d4
 ...
-🔧 Customize Simulation
-You can modify:
+Configuration
+Modify the following parameters in eventwave.py to adjust the simulation:
 
-max_time: How many time ticks to simulate.
-wave_delay: Time delay between propagation steps.
-radius: How far the event reaches (e.g., distance to neighbor hubs).
-initial_events: Inject multiple starting points.
-📈 Potential Extensions
-Visualize hubs and event waves with matplotlib or Plotly.
-Add event decay after N waves.
-Integrate with real logistics data for replay analysis.
-📜 License
-MIT License — free to use and modify.
+max_time: Total simulation time (default: 6)
+wave_delay: Delay between event propagation steps (default: 1)
+radius: Distance to propagate events in each step (default: 1 unit)
+Potential Extensions
+Integrate with real logistics data to simulate actual shipment movements.
+Add visual representation of hubs and event propagation.
+Enhance spatial indexing using QuadTree for larger-scale simulations.
+Export event logs for further analysis or dashboard integration.
+License
+This project is licensed under the MIT License. See the LICENSE file for details.
 
-🤝 Contribute
-Got ideas to enhance event propagation or optimize spatial indexing (e.g., QuadTree)? PRs welcome!
+Contributing
+Contributions are welcome. Please open an issue or submit a pull request for new features, optimizations, or bug fixes. For larger changes, it is recommended to start a discussion first.
